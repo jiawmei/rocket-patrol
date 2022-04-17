@@ -66,7 +66,24 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
-
+        
+        // intialize and display time left
+        this.time1 = game.settings.gameTimer/1000;
+        
+        let timeConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            //backgroundColor: '#F3B141',
+            color: '#843605',
+            //align: 'right',
+            //padding: {
+            //    top: 5,
+            //    bottom: 5,
+            //},
+            fixedWidth: 100
+        }
+        this.timeLeft = this.add.text(500, borderUISize + borderPadding*2, this.time1, scoreConfig);
+        this.timeMenu = this.add.text(440, borderUISize + borderPadding*3, "Time",timeConfig);
         // GAME OVER flag
         this.gameOver = false;
 
@@ -95,6 +112,8 @@ class Play extends Phaser.Scene {
             this.ship01.update();               // update spaceship (x3)
             this.ship02.update();
             this.ship03.update();
+            this.time1 -= 10000;
+            this.timeLeft = this.time1;
         }
 
         // check collisions
@@ -110,6 +129,7 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+        
     }
 
     checkCollision(rocket, ship) {
